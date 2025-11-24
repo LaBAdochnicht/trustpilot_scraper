@@ -19,16 +19,39 @@ pip install trustpilot-scraper
 
 ## Usage
 
+### Basic Usage
+
 ```python
 from trustpilot_scraper.scraper import scrape_trustpilot_reviews
 
 base_url = 'https://www.trustpilot.com/review/example.com'
 
-reviews = scrape_trustpilot_reviews(base_url)
+result = scrape_trustpilot_reviews(base_url)
+reviews = result['reviews']
+business_info = result['business_info']
 
 for review in reviews:
     print(review)
+```
 
+### Filter 5-Star Reviews Only
+
+```python
+result = scrape_trustpilot_reviews(base_url, filter_5_stars=True)
+reviews = result['reviews']
+```
+
+### Command Line Usage
+
+```bash
+# Scrape all reviews
+python3 example_usage.py --url example.com
+
+# Scrape only 5-star reviews
+python3 example_usage.py --url example.com --filter-5-stars
+
+# Scrape all reviews (explicit)
+python3 example_usage.py --url example.com --no-filter
 ```
 ## Output
 
@@ -52,9 +75,14 @@ for review in reviews:
 
 ## Features
 
-- Scrapes Trustpilot reviews from the provided base URL.
-- Retrieves review data including date, author, body, heading, rating, and location.
-- Handles pagination automatically to scrape all available reviews.
+- Scrapes Trustpilot reviews from the provided base URL
+- Retrieves review data including date, author, body, heading, rating, and location
+- Handles pagination automatically to scrape all available reviews
+- Supports filtering for 5-star ratings only
+- Extracts business information (TrustScore, total reviews, average rating)
+- Scrapes reviews from all languages and locations
+- Removes duplicate reviews automatically
+- Exports data to JSON and CSV formats
 
 ## Dependencies
 
